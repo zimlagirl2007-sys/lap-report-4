@@ -1,0 +1,39 @@
+#define trigPin 10 // define the trig pin to pin 10
+#define echoPin 13 // define the echo pin to pin 13
+float duration, distance; 
+
+void setup() { 
+  // put your setup code here, to run once: 
+Serial.begin (9600); 
+
+pinMode(trigPin, OUTPUT); // output being we're sending signals out from the arduino into the device 
+pinMode(echoPin, INPUT);// input back to the device 
+} 
+
+void loop() { // put your main code here, to run repeatedly:
+  digitalWrite(trigPin,LOW); // set the trig pin as low
+  delayMicroseconds(2); // not particularily critical, just want to start off in a low state 
+  digitalWrite(trigPin, HIGH); // set the trig pin as high
+  delayMicroseconds(10); // delay of 10 microseconds
+   digitalWrite(trigPin,LOW);  // set the trig pin to low
+
+// mesure the response we get back 
+duration = pulseIn(echoPin, HIGH); 
+
+//Calculate using the speed of sound 
+//use 343 metres per second as speed of sound 
+distance = (duration / 2) * 0.0343; 
+
+//send result to serial monitor 
+Serial.print("Distance = "); 
+
+if (distance >= 400 || distance <= 2) { // if the distance is more than 400, but less than 2, do the following commands
+  Serial.println("Out of range"); // display "out of range" on the serial monitor
+} 
+else { // if everything esle above is false, do the following commands
+  Serial.print(distance); // display the distance reading on the serial monitor
+  Serial.println("cm"); // display "cm" on the serial monitor
+  delay (500); // a delay between readings
+} 
+delay(500); // a delay
+} 
