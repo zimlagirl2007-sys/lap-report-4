@@ -1,0 +1,57 @@
+#include <LiquidCrystal.h>  
+
+ const float Vin = 4.05; // define Vin to a value
+ const float R1=10020; // define R1 to a value
+ const float calibration = 1.1; // define calibration to a value
+
+const int rs = 12, en = 11, d4= 5, d5= 4, d6= 3, d7=2;  // defining these
+
+LiquidCrystal lcd(rs, en, d4, d5, d6, d7);  
+
+ byte ohm[8] = { // meant to make custom symbo, which in this case, is an ohm symbol
+  0b00000, 
+  0b11111, 
+  0b10001, 
+  0b10001, 
+  0b10001, 
+  0b01010, 
+  0b11011, 
+  0b00000 
+ }; 
+
+void setup() {  
+Serial.begin(9600); 
+  lcd.begin(16,2);  
+  lcd.createChar(0,ohm); 
+} 
+void loop() {  
+lcd.clear(); // resets the lcd each time
+int sensorValue = analogRead(A0); // get the value of the sensor trough analog read
+ float Vout = (sensorValue * Vin) / 1023.0;   // Convert ADC value to voltage   
+  float resistance = R1 * (Vout / (Vin - Vout));  // calculate resistance
+  float R = resistance * calibration ;  // Calculate unknown resistance   
+
+lcd.setCursor(0,0); // set the cursor of the lcd
+lcd.print("R = "); // display "R =" on the lcd
+lcd.setCursor(4,0); // set the cursor of the lcd
+
+Serial.print("R ="); // display "R =" on the serial monitor
+Serial.println(R); // display the value read of R
+
+if (R <1000){ // if the value of R i less than 1000, do the following commands
+  lcd.print(R,1); // display the value of R on the lcd
+  lcd.write(byte(0)); // display the custom symbol on the lcd
+} 
+else if (R < 1000000){ // if the value of R is less than 1000000, do the following commands
+  lcd.print (R/1000.0,2); // display the valye of R which is divided by 1000, on the lcd
+  lcd.print ("k"); // display "k" on lcd
+  lcd.write(byte(0)); // display the custom symbol on the lcd
+} 
+else  { // if everything above ends up false, do the following commands
+  lcd.print (R/1000000.0,2); // display the value of R, which is divided by 1000000, on the lcd
+  lcd.print ("M"); // display "M" on the lcd
+  lcd.write(byte(0)); // display the custom symbol on the lcd
+} 
+
+delay(1000); // set a delay of 1 seconds between readings
+}  
