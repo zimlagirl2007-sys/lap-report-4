@@ -1,57 +1,31 @@
 #include <Servo.h> 
-
 Servo myServo;  // create servo object  
-
 int LDR = A0;  // X-axis connected to analog pin A0  
-
 int servoPin = 9;  // Servo signal pin connected to digital pin 9  
-
 int val;  // to read joystick value  
-
 unsigned long previousMillis = 0; 
-
 const long interval = 1000; 
-
 const int LDR_MIN = 390; 
-
 const int LDR_Max = 730; 
-
 int angle; 
 
 void setup() {  
-
   Serial.begin(9600); 
-
   myServo.attach(servoPin);  
-
-  pinMode(LDR, INPUT);  
-
+  pinMode(LDR, INPUT);  // set the LDR as an INPUT
 }  
 
 void loop() {  
-
-  val = analogRead(LDR);           // read the joystick (0–1023)  
-
+  val = analogRead(LDR); // read the joystick (0–1023)  
   angle = map(val, LDR_MIN, LDR_Max, 0, 180);  // map it to servo angle  
-
 angle= constrain(angle, 0, 180); 
-
-  myServo.write(angle);               // move servo  
-
+  myServo.write(angle);// move servo  
 unsigned long currentMillis = millis(); 
 
 if (currentMillis - previousMillis >= interval); { 
-
-      
-
     previousMillis = currentMillis; 
-
-Serial.print("Bit rate= "); 
-
-Serial.println(val); 
-
+Serial.print("Bit rate= "); // display "Bit rate=" on serial monitor
+Serial.println(val); // display the redinf of the value on the serial monitor
 } 
-
-  delay(15);                        // small delay for smooth movement  
-
+delay(15);// small delay for smooth movement  
 }  
