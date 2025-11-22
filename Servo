@@ -1,0 +1,17 @@
+#include <Servo.h> 
+Servo myServo; // create servo object  
+int joyX = A0; // X-axis connected to analog pin A0  
+int servoPin = 9; // Servo signal pin connected to digital pin 9  
+int joystickval; // to read joystick value  
+
+void setup() {  
+  myServo.attach(servoPin);  
+  pinMode(joyX, INPUT);  // set Joyx as an input
+}  
+
+void loop() {  
+  joystickval = analogRead(joyX); // read the joystick (0–1023)  
+  joystickval = map(val, 0, 1023, 0, 180);  // map it to servo angle  
+  myServo.write(val); // move servo  
+  delay(15);// small delay for smooth movement  
+}  
