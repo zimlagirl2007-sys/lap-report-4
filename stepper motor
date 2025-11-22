@@ -1,93 +1,47 @@
 #include <Stepper.h> 
-
- 
-
 const int stepsPerRevolution = 2048;  // for 28BYJ-48 
-
- 
-
 // Initialize stepper motor pins IN1-IN4 
-
 Stepper myStepper(stepsPerRevolution, 8, 10, 9, 11); 
-
- 
-
 const int joyX = A0; // Joystick X-axis 
 
- 
-
 void setup() { 
-
   Serial.begin(9600); 
-
 } 
 
- 
-
 void loop() { 
-
   int val = analogRead(joyX); // 0 - 1023 
-
-  int stepSpeed = 0;           // Stepper speed 
-
-  int direction = 1;           // 1 = forward, -1 = backward 
-
- 
+  int stepSpeed = 0;// Stepper speed 
+  int direction = 1;// 1 = forward, -1 = backward 
 
   // Map joystick to speed and direction 
-
   // Center (~512) = stop 
-
   int deadzone = 50; // small deadzone to avoid jitter 
 
   if (val > 512 + deadzone) { 
-
     direction = 1; // forward 
-
     stepSpeed = map(val, 512 + deadzone, 1023, 0, 20); // speed steps per iteration 
-
-  } else if (val < 512 - deadzone) { 
-
+  } 
+else if (val < 512 - deadzone) { 
     direction = -1; // backward 
-
     stepSpeed = map(val, 512 - deadzone, 0, 0, 20); // speed 
-
-  } else { 
-
+  } 
+else { 
     stepSpeed = 0; // joystick near center → stop 
-
   } 
 
- 
-
-  // Step the motor 
-
+// Step the motor 
   if (stepSpeed > 0) { 
-
     myStepper.setSpeed(stepSpeed * 2); // map to RPM (adjust factor for smoothness) 
-
-    myStepper.step(direction);          // step one step at a time 
-
+    myStepper.step(direction); // step one step at a time 
   } 
-
- 
 
   // Serial output for debugging 
-
-  Serial.print("Joystick: "); 
-
-  Serial.print(val); 
-
-  Serial.print(" -> Speed: "); 
-
-  Serial.print(stepSpeed); 
-
-  Serial.print(" Dir: "); 
-
-  Serial.println((direction == 1) ? "Forward" : "Backward"); 
-
- 
+  Serial.print("Joystick: "); // display "joystick:" on serial monitor
+  Serial.print(val); // display the reading of the value on serial monitor
+  Serial.print(" -> Speed: "); //display " -> Speed: " on serial monitor
+  Serial.print(stepSpeed); // display the stepSpeed value on serial monitor
+  Serial.print(" Dir: "); // display "Dir:" on serial monitor
+  Serial.println((direction == 1) ? "Forward" : "Backward"); // display (direction == 1) ? "Forward" : "Backward" on serial monitor
 
   delay(10); // small delay for smoother stepping 
-
 } 
