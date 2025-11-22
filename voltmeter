@@ -1,0 +1,24 @@
+#include <LiquidCrystal.h>  
+
+const int rs = 12, en = 11, d4= 5, d5= 4, d6= 3, d7=2;  
+LiquidCrystal lcd(rs, en, d4, d5, d6, d7);  
+
+void setup() {  
+Serial.begin (9600); 
+  lcd.begin(16,2);  
+}  
+
+void loop() {  
+ int sensorValue = analogRead (A0); 
+  float voltage = sensorValue*(5.0/1023.0); //calculate the value of the voltage
+
+  lcd.setCursor(0,1);  // set the cursor of the LCD
+
+  Serial.print("voltage = "); //Display "voltage =" on serial monitor
+  Serial.println(voltage); // display voltage reading on serial monitor
+
+  lcd.print("Voltage =");  // display "Voltage=" on LCD
+  lcd.print(voltage); // display the voltage reading on LCD
+
+  delay(1000); // delay of 1 second between readings
+}  
