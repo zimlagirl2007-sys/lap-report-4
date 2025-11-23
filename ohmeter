@@ -1,5 +1,6 @@
 #include <LiquidCrystal.h>  
-
+// meant to calculate and find the resistance of the resistor and display it on the serial monitor and LCD
+//Analog input program
  const float Vin = 4.05; // define Vin to a value
  const float R1=10020; // define R1 to a value
  const float calibration = 1.1; // define calibration to a value
