@@ -1,3 +1,5 @@
+//program reads the analog value from an LDR and maps the light intensity to a servo motor angle, allowing the servo to move depending on light levels
+//analog input program
 #include <Servo.h> 
 Servo myServo;  // create servo object  
 int LDR = A0;  // X-axis connected to analog pin A0  
