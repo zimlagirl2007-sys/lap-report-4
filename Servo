@@ -1,3 +1,5 @@
+//program is meant to read the X-axis of the joystick and map it to a servo motor angle
+// analog input program
 #include <Servo.h> 
 Servo myServo; // create servo object  
 int joyX = A0; // X-axis connected to analog pin A0  
