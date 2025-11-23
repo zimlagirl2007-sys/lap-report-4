@@ -1,3 +1,5 @@
+// program measures distance using an ultrasonic sensor and displays the distance to the Serial Monitor
+//Digital output and input processing program
 #define trigPin 10 // define the trig pin to pin 10
 #define echoPin 13 // define the echo pin to pin 13
 float duration, distance; 
