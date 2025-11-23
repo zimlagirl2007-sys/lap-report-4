@@ -1,3 +1,5 @@
+//program reads temperature and humidity data from a DHT11 sensor and displays the readings both on LCD and on the Serial Monitor
+//digital sensor program
 // DHT Temperature & Humidity Sensor 
 // Unified Sensor Library Example 
 // Written by Tony DiCola for Adafruit Industries 
