@@ -1,3 +1,5 @@
+//control the rotation and speed of a stepper motor using a joystick
+//analog input program
 #include <Stepper.h> 
 const int stepsPerRevolution = 2048;  // for 28BYJ-48 
 // Initialize stepper motor pins IN1-IN4 
